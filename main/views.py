@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
-from main.models import Person
+from main.models import Categories
 
 # def index(request):
 #     person=Person.objects.all()
@@ -16,38 +16,38 @@ from main.models import Person
 #     return render(request, "main/main.html", context)
 
 def index(request):
-    people = Person.objects.all()
-    return render(request, "main/main.html", {"people": people})
+    cate = Categories.objects.all()
+    return render(request, "main/main.html", {"cate": cate})
 
 def create(request):
     if request.method=="POST":
-        person=Person()
-        person.name=request.POST.get("name")
-        person.surname=request.POST.get("surname")
-        person.save()
+        cate=Categories()
+        cate.name=request.POST.get("name")
+        cate.name_two=request.POST.get("name_two")
+        cate.save()
     #return render(request, "main/main.html")
     return HttpResponseRedirect('/')
 
 def edit(request, id):
     try:
-        person=Person.objects.get(id=id)
+        cate=Categories.objects.get(id=id)
         if request.method=="POST":
-            person.name=request.POST.get("name")
-            person.surname=request.POST.get("surname")
-            person.save()
+            cate.name=request.POST.get("name")
+            cate.name_two=request.POST.get("name_two")
+            cate.save()
             return HttpResponseRedirect("/")
         else:
-            return render(request, "main/next.html", {"person" : person})
+            return render(request, "main/next.html", {"cate" : cate})
                                              
-    except person.DoesNotExist:
+    except cate.DoesNotExist:
         return HttpResponseRedirect("<h2>Not found page :(</h2>")
     
 def delete(request, id):
     try:
-        person=Person.objects.get(id=id)
-        person.delete()
+        cate=Categories.objects.get(id=id)
+        cate.delete()
         return HttpResponseRedirect("/")
-    except person.DoesNotExist:
+    except cate.DoesNotExist:
         return HttpResponseRedirect("<h2>Not found page :( </h2>")
 
 # def next_page(request):

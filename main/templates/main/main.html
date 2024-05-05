@@ -5,31 +5,31 @@
     <title>METANIT.COM</title>
 </head>
 <body>
-    <form method="POST" action="create/">
+    <form method="POST" action="{% url "main:create" %}">
         {% csrf_token %}
         <p>
-            <label>Введите Имя</label><br>
+            <label>Введите Название Категории</label><br>
             <input type="text" name="name" />
         </p>
         <p>
-            <label>Введите Фамилию</label><br>
-            <input type="text" name="surname" />
+            <label>Введите Название Подкатегории</label><br>
+            <input type="text" name="name_two" />
         </p>
         <input type="submit" value="Сохранить" >
     </form>
-    {% if people.count > 0 %}
+    {% if cate.count > 0 %}
     <h2>Список пользователей</h2>
     <table>
-        <thead><th>Id</th><th>Имя</th><th>Фамилия</th><th></th></thead>
-        {% for person in people %}
+        <thead><th>Id</th><th>Категория</th><th>Подкатегория</th><th></th></thead>
+        {% for category in cate %}
         <tr>
-            <td>{{ person.id }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.surname }}</td>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.name_two }}</td>
             <td><a 
-                href="{% url "main:edit" person.id %}">Изменить
+                href="{% url "main:edit" category.id %}">Изменить
             </a> | <a 
-                href="{% url "main:delete" person.id %}">Удалить
+                href="{% url "main:delete" category.id %}">Удалить
             </a></td>
         </tr>
         {% endfor %}
